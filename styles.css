@@ -162,18 +162,20 @@ ul { list-style: none; }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-top: 14px;
-  padding-bottom: 14px;
-  gap: 16px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  gap: 10px;
+  flex-wrap: nowrap;
 }
 .logo {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   font-family: 'Poppins', sans-serif;
   font-weight: 800;
-  font-size: 20px;
+  font-size: 16px;
   color: var(--green-dark);
+  flex-shrink: 0;
 }
 .logo-icon {
   width: 44px;
@@ -202,16 +204,18 @@ ul { list-style: none; }
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 2px;
+  flex-shrink: 0;
 }
 .nav-links a {
-  padding: 8px 14px;
+  padding: 8px 10px;
   border-radius: var(--radius-sm);
   font-family: 'Poppins', sans-serif;
   font-weight: 500;
-  font-size: 14px;
+  font-size: 13px;
   color: var(--gray-800);
   transition: var(--transition);
+  white-space: nowrap;
 }
 .nav-links a:hover,
 .nav-links a.active {
