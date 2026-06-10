@@ -794,7 +794,7 @@ section { padding: 80px 0; }
   border-bottom: 1px solid var(--gray-100);
 }
 .fits-list li::before {
-  content: '✓';
+  content: '\2713';
   color: var(--green-main);
   font-weight: 700;
   flex-shrink: 0;
@@ -931,7 +931,7 @@ section { padding: 80px 0; }
   font-size: 15px;
 }
 .article-body ul li::before {
-  content: '✓';
+  content: '\2713';
   position: absolute;
   left: 0;
   color: var(--green-main);
