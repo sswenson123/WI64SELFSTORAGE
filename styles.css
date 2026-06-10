@@ -245,18 +245,35 @@ ul { list-style: none; }
   flex-direction: column;
   background: var(--white);
   border-top: 1px solid var(--gray-200);
-  padding: 16px 24px;
-  gap: 4px;
+  padding: 0 20px 20px;
+  gap: 0;
 }
-.mobile-nav a {
-  padding: 12px 0;
+/* CTA row — Pay Rent + Rent a Unit side by side at top */
+.mobile-nav-cta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding: 14px 0;
+  border-bottom: 2px solid var(--gray-100);
+  margin-bottom: 4px;
+}
+.mobile-nav-cta .btn {
+  width: 100%;
+  justify-content: center;
+  padding: 10px 8px;
+  font-size: 14px;
+}
+/* Nav links */
+.mobile-nav a:not(.btn) {
+  padding: 11px 0;
   font-family: 'Poppins', sans-serif;
   font-weight: 500;
   font-size: 15px;
   color: var(--gray-800);
   border-bottom: 1px solid var(--gray-100);
+  display: block;
 }
-.mobile-nav .btn { margin-top: 12px; width: 100%; justify-content: center; }
+.mobile-nav a:not(.btn):last-of-type { border-bottom: none; }
 
 /* ---- Section Utilities ---- */
 section { padding: 80px 0; }
