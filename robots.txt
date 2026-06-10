@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Block backend/portal pages from indexing (those are on storedge.com anyway)
+Disallow: /wp-admin/
+Disallow: /wp-login.php
+
+# Sitemap location — submit this URL in Google Search Console
+Sitemap: https://www.wi64selfstorage.com/sitemap.xml
