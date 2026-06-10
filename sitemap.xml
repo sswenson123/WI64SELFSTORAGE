@@ -4,52 +4,52 @@
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 
-  <!-- Home Page — highest priority -->
+  <!-- Home Page -->
   <url>
-    <loc>https://www.wi64selfstorage.com/</loc>
-    <lastmod>2024-12-01</lastmod>
+    <loc>https://wi64selfstorage.com/</loc>
+    <lastmod>2026-06-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
 
   <!-- Units & Pricing -->
   <url>
-    <loc>https://www.wi64selfstorage.com/units</loc>
-    <lastmod>2024-12-01</lastmod>
+    <loc>https://wi64selfstorage.com/units</loc>
+    <lastmod>2026-06-10</lastmod>
     <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Storage Tips / SEO Landing Page -->
+  <url>
+    <loc>https://wi64selfstorage.com/self-storage-guide</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <!-- Contact Page -->
   <url>
-    <loc>https://www.wi64selfstorage.com/contact</loc>
-    <lastmod>2024-12-01</lastmod>
+    <loc>https://wi64selfstorage.com/contact</loc>
+    <lastmod>2026-06-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- FAQ Page -->
   <url>
-    <loc>https://www.wi64selfstorage.com/faq</loc>
-    <lastmod>2024-12-01</lastmod>
+    <loc>https://wi64selfstorage.com/faq</loc>
+    <lastmod>2026-06-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
-  <!-- SEO Landing Page -->
-  <url>
-    <loc>https://www.wi64selfstorage.com/self-storage-new-richmond-wi</loc>
-    <lastmod>2024-12-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
   <!-- Tenant Protection -->
   <url>
-    <loc>https://www.wi64selfstorage.com/tenant-protection/</loc>
-    <lastmod>2024-12-01</lastmod>
+    <loc>https://wi64selfstorage.com/tenant-protection/</loc>
+    <lastmod>2026-06-10</lastmod>
     <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
+    <priority>0.6</priority>
   </url>
 
 </urlset>
