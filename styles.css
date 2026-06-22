@@ -1116,3 +1116,16 @@ section { padding: 80px 0; }
   .fits-list li { font-size: 13px; padding: 5px 0; }
 }
 
+
+/* ── Live availability badges (populated by js/availability.js) ── */
+.unit-avail-bar{ }
+.avail-badge{
+  display:block;
+  text-align:center;
+  font-size:13px;
+  font-weight:700;
+  padding:8px 12px;
+  letter-spacing:.2px;
+}
+.avail-badge.avail-yes{ background:#e7f6ec; color:#1b7a3d; }
+.avail-badge.avail-no{ background:#fdeaea; color:#b3261e; }
