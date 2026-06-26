@@ -26,8 +26,15 @@ availability, and writes `data/availability.json`. When `units.html` loads,
 
 ```bash
 cd "/Users/sswenson/Claude/Self Storage"
-npm install puppeteer
+npm install puppeteer puppeteer-extra puppeteer-extra-plugin-stealth
 ```
+
+> **Scrape gently.** storEDGE rate-limits / bot-detects (the "Service
+> Unavailable" 503). To stay under the radar the scraper now runs in **stealth
+> mode** and opens a **real visible Chrome window** (don't be surprised when a
+> browser pops up — let it finish, it closes itself). Run it **no more than once
+> or twice a day**. The scraper retries on a 503 and never overwrites good
+> prices, so the occasional block is harmless.
 
 ## Run it manually
 
@@ -53,10 +60,11 @@ which node          # note the path it prints, e.g. /usr/local/bin/node
 crontab -e
 ```
 
-Add this line (runs at 12am, 6am, 12pm, 6pm). Replace the node path if yours differs:
+Add this line (runs twice a day — 7am & 7pm). `HEADLESS=1` runs it hidden so a
+window doesn't pop up during scheduled runs. Replace the node path if yours differs:
 
 ```
-0 0,6,12,18 * * * cd "/Users/sswenson/Claude/Self Storage" && /usr/local/bin/node scraper.js >> scraper.log 2>&1 && git add data/availability.json && git commit -m "Auto: update prices" && git push
+0 7,19 * * * cd "/Users/sswenson/Claude/Self Storage" && HEADLESS=1 /usr/local/bin/node scraper.js >> scraper.log 2>&1 && git add data/availability.json && git commit -m "Auto: update prices" && git push
 ```
 
 ## How to verify it's actually working
