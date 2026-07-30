@@ -6,4 +6,4 @@ Disallow: /wp-admin/
 Disallow: /wp-login.php
 
 # Sitemap location — submit this URL in Google Search Console
-Sitemap: https://www.wi64selfstorage.com/sitemap.xml
+Sitemap: https://wi64selfstorage.com/sitemap.xml
