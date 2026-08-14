@@ -12,18 +12,21 @@
   <meta property="og:description" content="Clean, secure self storage in New Richmond, WI. Easy online move-in. Units from 8×8 to 10×26." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://wi64selfstorage.com/" />
-  <!-- Schema.org LocalBusiness -->
+  <!-- Schema.org SelfStorage -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "SelfStorage",
+    "@id": "https://wi64selfstorage.com/#business",
     "name": "WI 64 Self Storage",
     "url": "https://wi64selfstorage.com",
     "telephone": "+16513270146",
     "email": "wi64selfstorage@gmail.com",
+    "priceRange": "$55-$130",
+    "description": "Clean, secure self storage in New Richmond, WI. Units from 8×8 to 10×26, starting at $55/month. Easy online move-in, month-to-month, no long-term contract. Serving New Richmond, Baldwin, Hudson, River Falls, and St. Croix County.",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "692 West North Shore Drive",
+      "streetAddress": "692 W North Shore Drive",
       "addressLocality": "New Richmond",
       "addressRegion": "WI",
       "postalCode": "54017",
@@ -37,19 +40,53 @@
     "openingHoursSpecification": [
       {
         "@type": "OpeningHoursSpecification",
-        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
-        "opens": "06:00",
-        "closes": "22:00"
-      },
-      {
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": ["Saturday","Sunday"],
+        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
         "opens": "06:00",
         "closes": "22:00"
       }
     ],
-    "priceRange": "$$",
-    "description": "Self Storage In New Richmond, WI with units from 8x8 to 10x26."
+    "areaServed": [
+      { "@type": "City", "name": "New Richmond", "containedInPlace": { "@type": "State", "name": "Wisconsin" } },
+      { "@type": "City", "name": "Baldwin", "containedInPlace": { "@type": "State", "name": "Wisconsin" } },
+      { "@type": "City", "name": "Hudson", "containedInPlace": { "@type": "State", "name": "Wisconsin" } },
+      { "@type": "City", "name": "River Falls", "containedInPlace": { "@type": "State", "name": "Wisconsin" } },
+      { "@type": "City", "name": "Somerset", "containedInPlace": { "@type": "State", "name": "Wisconsin" } },
+      { "@type": "County", "name": "St. Croix County", "containedInPlace": { "@type": "State", "name": "Wisconsin" } }
+    ],
+    "makesOffer": [
+      {
+        "@type": "Offer",
+        "name": "Small Storage Unit (8×8)",
+        "description": "8×8 ft indoor storage unit, ideal for a studio apartment, seasonal gear, or boxes.",
+        "price": "55.00",
+        "priceCurrency": "USD",
+        "priceSpecification": { "@type": "UnitPriceSpecification", "price": "55.00", "priceCurrency": "USD", "unitText": "month" }
+      },
+      {
+        "@type": "Offer",
+        "name": "Medium Storage Unit",
+        "description": "Medium indoor storage unit, fits contents of a 1–2 bedroom apartment.",
+        "price": "80.00",
+        "priceCurrency": "USD",
+        "priceSpecification": { "@type": "UnitPriceSpecification", "price": "80.00", "priceCurrency": "USD", "unitText": "month" }
+      },
+      {
+        "@type": "Offer",
+        "name": "Large Storage Unit",
+        "description": "Large indoor storage unit, fits furniture and contents of a 2–3 bedroom home.",
+        "price": "90.00",
+        "priceCurrency": "USD",
+        "priceSpecification": { "@type": "UnitPriceSpecification", "price": "90.00", "priceCurrency": "USD", "unitText": "month" }
+      },
+      {
+        "@type": "Offer",
+        "name": "Extra-Large Storage Unit (10×26)",
+        "description": "10×26 ft indoor storage unit — our largest, fits vehicles, boats, or the full contents of a house.",
+        "price": "130.00",
+        "priceCurrency": "USD",
+        "priceSpecification": { "@type": "UnitPriceSpecification", "price": "130.00", "priceCurrency": "USD", "unitText": "month" }
+      }
+    ]
   }
   </script>
   <link rel="stylesheet" href="styles.css" />
