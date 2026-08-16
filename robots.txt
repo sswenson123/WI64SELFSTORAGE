@@ -1,6 +1,9 @@
 User-agent: *
 Allow: /
 
+# Block .html extension URLs — canonical non-.html versions are the indexed pages
+Disallow: /*.html$
+
 # Block backend/portal pages from indexing (those are on storedge.com anyway)
 Disallow: /wp-admin/
 Disallow: /wp-login.php
