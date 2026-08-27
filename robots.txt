@@ -1,8 +1,9 @@
 User-agent: *
 Allow: /
 
-# Block .html extension URLs — canonical non-.html versions are the indexed pages
-Disallow: /*.html$
+# Note: .html URLs are intentionally left crawlable so Google can read the
+# rel=canonical on each one pointing to the extensionless version.
+# Do NOT re-add "Disallow: /*.html$" — it blocked the site's own navigation.
 
 # Block backend/portal pages from indexing (those are on storedge.com anyway)
 Disallow: /wp-admin/

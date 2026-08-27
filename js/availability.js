@@ -10,7 +10,7 @@
  * dash is left in place so the page never looks broken.
  */
 (function () {
-  var JSON_PATH = 'data/availability.json';
+  var JSON_PATH = '/data/availability.json';
   var KEYS = ['8x8', '10x14', '10x20', '10x26'];
 
   fetch(JSON_PATH, { cache: 'no-store' })
