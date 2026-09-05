@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Move Out | WI 64 Self Storage — New Richmond, WI</title>
+  <meta name="description" content="Moving out of your WI 64 Self Storage unit in New Richmond? Schedule your move-out, or send photos of your empty unit and we'll close your account." />
+  <link rel="canonical" href="https://wi64selfstorage.com/move-out" />
+  <meta property="og:title" content="Move Out | WI 64 Self Storage" />
+  <meta property="og:description" content="Schedule your move-out or confirm you're already out — in about two minutes, from your phone." />
+  <meta property="og:url" content="https://wi64selfstorage.com/move-out" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Move Out",
+    "url": "https://wi64selfstorage.com/move-out",
+    "description": "Schedule a move-out or confirm a completed move-out at WI 64 Self Storage in New Richmond, WI.",
+    "isPartOf": { "@type": "WebSite", "name": "WI 64 Self Storage", "url": "https://wi64selfstorage.com" }
+  }
+  </script>
+  <link rel="stylesheet" href="/styles.css" />
+  <style>
+  /* ── Move-out wizard ───────────────────────────────────────────────
+     Layout note: .mo-body scrolls and .mo-foot sits outside it. An auto
+     margin inside a scroll container does not grow scrollHeight, so a tall
+     screen silently clips its last element instead of scrolling. Do not
+     merge these back together. */
+  .mo-shell{max-width:520px;margin:0 auto;padding:0 16px}
+  .mo-card{background:#fff;border:1px solid var(--gray-200);border-radius:14px;
+    box-shadow:var(--shadow-sm);display:flex;flex-direction:column;
+    min-height:min(600px, calc(100svh - 220px))}
+  .mo-nav{display:flex;align-items:center;justify-content:space-between;
+    padding:0 6px 0 4px;border-bottom:1px solid var(--gray-200);min-height:46px;flex-shrink:0;
+    border-radius:14px 14px 0 0;background:#fff}
+  .mo-back{border:0;background:none;font:inherit;font-size:15px;font-weight:600;color:var(--green-main);
+    padding:11px 12px;cursor:pointer;border-radius:8px;min-height:44px}
+  .mo-back[hidden]{display:none}
+  .mo-step{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gray-600);padding-right:14px}
+  .mo-bar{height:3px;background:var(--gray-200);flex-shrink:0}
+  .mo-bar i{display:block;height:100%;width:0;background:var(--green-main);transition:width .3s ease}
+  /* The page scrolls, not a nested box. A nested scroller puts the action bar
+     below the fold when the iOS keyboard halves the viewport, and stacks two
+     scrollbars on a small screen. .mo-body grows; .mo-foot sticks to the
+     bottom of the *viewport*, so the primary action is always reachable. */
+  .mo-body{flex:1;min-height:0;display:flex;flex-direction:column;padding:24px 20px 8px}
+  .mo-body > *{flex-shrink:0}
+  .mo-body.center{justify-content:center;text-align:center}
+  .mo-foot{flex-shrink:0;position:sticky;bottom:0;z-index:3;background:#fff;
+    padding:14px 20px calc(14px + env(safe-area-inset-bottom));
+    display:flex;flex-direction:column;gap:8px;border-top:1px solid var(--gray-200);
+    border-radius:0 0 14px 14px}
+  .mo-foot:empty{display:none}
+
+  .mo-h{font-size:26px;font-weight:800;line-height:1.12;letter-spacing:-.02em;margin:0 0 8px;color:var(--text)}
+  .mo-sub{font-size:15px;color:var(--gray-600);line-height:1.5;margin:0 0 24px}
+  .mo-label{display:block;font-size:13px;font-weight:700;color:var(--gray-800);margin:0 0 8px}
+  .mo-input{width:100%;font-family:inherit;font-size:17px;font-weight:600;color:var(--text);
+    background:#fff;border:2px solid var(--gray-200);border-radius:12px;padding:16px;outline:none;
+    -webkit-appearance:none;appearance:none}
+  .mo-input::placeholder{color:var(--gray-400);font-weight:400}
+  .mo-input:focus{border-color:var(--green-main);box-shadow:0 0 0 4px rgba(46,125,50,.12)}
+  .mo-input.unit{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:22px;
+    letter-spacing:.08em;text-transform:uppercase}
+  .mo-input[aria-invalid="true"]{border-color:#C62828}
+  .mo-stack{display:flex;flex-direction:column;gap:18px}
+  .mo-hint{font-size:12.5px;color:var(--gray-600);margin:8px 2px 0;line-height:1.45}
+  .mo-fieldmsg{font-size:13px;color:#C62828;font-weight:600;margin:7px 2px 0}
+
+  .mo-btn{width:100%;min-height:58px;border-radius:13px;border:2px solid transparent;
+    font-family:inherit;font-size:17px;font-weight:700;letter-spacing:-.01em;
+    display:flex;align-items:center;justify-content:center;gap:9px;cursor:pointer;padding:14px 18px;
+    background:var(--green-main);color:#fff;transition:transform .12s ease,background .2s}
+  .mo-btn:active{transform:scale(.985)}
+  .mo-btn:disabled{background:var(--gray-200);color:var(--gray-600);cursor:not-allowed}
+  .mo-btn.ghost{background:transparent;color:var(--green-main);border-color:var(--gray-200)}
+  .mo-foot .why{font-size:12.5px;color:var(--gray-600);text-align:center;margin:0;line-height:1.45}
+
+  .mo-tile{width:100%;text-align:left;background:#fff;border:2px solid var(--gray-200);border-radius:15px;
+    padding:19px 18px;cursor:pointer;display:flex;gap:14px;align-items:center;font-family:inherit;
+    transition:border-color .15s,background .15s;min-height:76px}
+  .mo-tile:hover{border-color:var(--green-light)}
+  .mo-tile.on{border-color:var(--green-main);background:var(--green-xpale)}
+  .mo-tile .ic{font-size:26px;line-height:1;flex-shrink:0}
+  .mo-tile b{display:block;font-size:17px;font-weight:700;color:var(--text);line-height:1.2}
+  .mo-tile small{display:block;font-size:13.5px;color:var(--gray-600);margin-top:4px;line-height:1.4}
+  .mo-tile .chk{margin-left:auto;width:24px;height:24px;border-radius:50%;
+    border:2px solid var(--gray-200);flex-shrink:0}
+  .mo-tile.on .chk{background:var(--green-main);border-color:var(--green-main);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700}
+
+  .mo-or{display:flex;align-items:center;gap:12px;margin:15px 0}
+  .mo-or::before,.mo-or::after{content:"";flex:1;height:1px;background:var(--gray-200)}
+  .mo-or span{font-size:11px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--gray-600)}
+
+  .mo-date{position:relative}
+  .mo-date .face{width:100%;min-height:76px;border:2px solid var(--gray-200);border-radius:15px;background:#fff;
+    display:flex;align-items:center;gap:14px;padding:16px 18px;font-size:18px;font-weight:700;
+    color:var(--gray-600);letter-spacing:-.01em}
+  .mo-date.set .face{border-color:var(--green-main);background:var(--green-xpale);color:var(--text)}
+  .mo-date .face .cal{font-size:25px;flex-shrink:0}
+  .mo-date .face .txt{line-height:1.2}
+  .mo-date .face .txt small{display:block;font-size:13px;font-weight:600;color:var(--gray-600);margin-top:4px}
+  .mo-date .face .caret{margin-left:auto;font-size:14px;font-weight:700;color:var(--green-main);flex-shrink:0}
+  .mo-date input{position:absolute;inset:0;width:100%;height:100%;opacity:0;border:0;margin:0;
+    padding:0;cursor:pointer;-webkit-appearance:none;font-size:16px}
+
+  .mo-slots{display:flex;flex-direction:column;gap:11px}
+  .mo-slot{width:100%;display:flex;gap:13px;align-items:center;text-align:left;cursor:pointer;
+    background:#fff;border:2px dashed var(--gray-200);border-radius:14px;padding:12px 14px;
+    font-family:inherit;transition:border-color .15s;min-height:78px}
+  .mo-slot:hover{border-color:var(--green-light)}
+  .mo-slot.done{border-style:solid;border-color:var(--green-main);background:var(--green-xpale)}
+  .mo-slot.busy{border-style:solid;border-color:var(--green-light)}
+  .mo-slot.failed{border-style:solid;border-color:#C62828;background:#FFF5F5}
+  .mo-slot .thumb{width:52px;height:52px;border-radius:9px;background:var(--gray-100);flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;
+    color:var(--gray-600);overflow:hidden;position:relative}
+  .mo-slot.done .thumb{background:var(--green-main);color:#fff}
+  .mo-slot .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+  .mo-slot b{display:block;font-size:15px;font-weight:700;color:var(--text);line-height:1.2}
+  .mo-slot small{display:block;font-size:12.5px;color:var(--gray-600);margin-top:3px;line-height:1.35}
+  .mo-slot.failed small{color:#C62828;font-weight:600}
+  .mo-slot .act{margin-left:auto;font-size:21px;color:var(--green-main);flex-shrink:0}
+  .mo-ring{width:34px;height:34px;border-radius:50%;border:3px solid var(--gray-200);
+    border-top-color:var(--green-main);animation:mo-spin .85s linear infinite}
+  @keyframes mo-spin{to{transform:rotate(360deg)}}
+  .mo-mini-bar{height:4px;border-radius:99px;background:var(--gray-200);overflow:hidden;margin-top:6px}
+  .mo-mini-bar i{display:block;height:100%;background:var(--green-main);width:0;transition:width .2s ease}
+
+  .mo-prog{margin:16px 0 0;display:flex;align-items:center;gap:11px}
+  .mo-prog .t{font-size:15px;font-weight:700;color:var(--text)}
+  .mo-prog .t.ok{color:var(--green-dark)}
+  .mo-prog .track{flex:1;height:7px;border-radius:99px;background:var(--gray-200);overflow:hidden}
+  .mo-prog .track i{display:block;height:100%;background:var(--green-main);border-radius:99px;transition:width .3s}
+  .mo-extras{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:12px}
+  .mo-ex{aspect-ratio:1;border-radius:11px;background:var(--gray-100);border:1.5px solid var(--gray-200);
+    position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+  .mo-ex img{width:100%;height:100%;object-fit:cover}
+  .mo-ex.add{border-style:dashed;cursor:pointer;font-size:22px;color:var(--gray-600);background:none;font-family:inherit}
+  .mo-ex .x{position:absolute;top:4px;right:4px;width:26px;height:26px;border-radius:50%;
+    background:rgba(0,0,0,.65);color:#fff;border:0;cursor:pointer;font-size:15px;line-height:1;
+    display:flex;align-items:center;justify-content:center}
+  .mo-optional{font-size:12.5px;color:var(--gray-600);text-align:center;margin:12px 0 0}
+
+  .mo-conf{width:100%;display:flex;gap:13px;align-items:center;text-align:left;cursor:pointer;
+    background:#fff;border:2px solid var(--gray-200);border-radius:13px;padding:14px;
+    font-family:inherit;font-size:15px;font-weight:600;color:var(--text);line-height:1.35;min-height:60px}
+  .mo-conf.on{border-color:var(--green-main);background:var(--green-xpale)}
+  .mo-conf .box{width:28px;height:28px;border-radius:8px;border:2px solid var(--gray-200);flex-shrink:0}
+  .mo-conf.on .box{background:var(--green-main);border-color:var(--green-main);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700}
+
+  .mo-review{border:1px solid var(--gray-200);border-radius:13px;overflow:hidden;background:#fff}
+  .mo-rhead{display:flex;justify-content:space-between;align-items:center;padding:11px 16px;
+    background:var(--gray-50);border-bottom:1px solid var(--gray-200)}
+  .mo-rhead span{font-size:11px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:var(--gray-600)}
+  .mo-rhead button{border:0;background:none;font-family:inherit;font-size:14px;font-weight:700;
+    color:var(--green-main);cursor:pointer;padding:6px 10px;margin:-6px -10px;border-radius:7px;min-height:36px}
+  .mo-row{display:flex;justify-content:space-between;align-items:baseline;gap:14px;
+    padding:13px 16px;border-bottom:1px solid var(--gray-200)}
+  .mo-row:last-child{border-bottom:0}
+  .mo-row span{font-size:13px;font-weight:700;color:var(--gray-600);flex-shrink:0}
+  .mo-row b{font-size:16px;font-weight:700;color:var(--text);text-align:right}
+  .mo-row b.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.04em}
+  .mo-remind{background:var(--green-xpale);border-radius:11px;padding:14px 16px;margin-top:16px;
+    font-size:14px;line-height:1.5;color:var(--gray-800)}
+  .mo-remind strong{color:var(--green-dark)}
+
+  .mo-alert{background:#FFEBEE;border-left:4px solid #C62828;border-radius:8px;padding:13px 15px;
+    font-size:14px;line-height:1.5;color:#8E1B14;margin:0 0 18px;font-weight:600}
+  .mo-alert[hidden]{display:none}
+  .mo-alert a{color:#8E1B14;font-weight:700}
+
+  .mo-mark{width:76px;height:76px;border-radius:50%;background:var(--green-main);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-size:38px;margin:0 auto 20px}
+  .mo-done-h{font-size:25px;font-weight:800;letter-spacing:-.02em;margin:0 0 10px;color:var(--text)}
+  .mo-done-p{font-size:15px;color:var(--gray-800);line-height:1.55;margin:0 0 18px}
+  .mo-stamp{display:inline-block;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;
+    font-weight:600;letter-spacing:.05em;background:var(--green-xpale);color:var(--green-dark);
+    border-radius:10px;padding:11px 16px;margin-bottom:18px;line-height:1.5}
+  .mo-next{border:1px solid var(--gray-200);border-radius:11px;padding:14px 16px;text-align:left;
+    font-size:13.5px;line-height:1.55;color:var(--gray-800)}
+  .mo-next strong{color:var(--text)}
+  .mo-sms{font-size:13px;color:var(--gray-600);margin-top:14px;line-height:1.4}
+
+  .mo-noscript{background:var(--accent-light);border-left:4px solid var(--accent);border-radius:8px;
+    padding:16px 18px;font-size:15px;line-height:1.6}
+  @media (prefers-reduced-motion: reduce){.mo-ring{animation:none}.mo-btn:active{transform:none}}
+  </style>
+</head>
+<body data-moveout-api="">
+
+<!-- ====== HEADER ====== -->
+<header class="site-header">
+  <div class="header-top">
+    <div class="container">
+      <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+        <span>📍 692 W North Shore Dr, New Richmond, WI 54017</span>
+        <a href="tel:+16513270146">📞 (651) 327-0146</a>
+      </div>
+    </div>
+  </div>
+  <div class="header-main">
+    <div class="container">
+      <a href="/" class="logo">
+        <img src="/logo.png" alt="WI 64 Self Storage" class="logo-img" />
+        <div>WI 64 Self Storage<span>New Richmond, WI</span></div>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="/">Home</a>
+        <a href="/units">Units &amp; Pricing</a>
+        <a href="/contact">Contact</a>
+        <a href="/faq">FAQ</a>
+        <a href="/self-storage-guide">Tips</a>
+        <a href="/tenant-protection/">Protection</a>
+        <a href="/move-out" class="active">Move Out</a>
+      </nav>
+      <div class="nav-cta">
+        <a href="https://rental-center.storedge.com/?companyId=ef2375f3-b212-4670-bbc0-be544f6614b6&facilityId=c621f5d9-15d0-4cc0-b26f-d4aa778139e7#/login" class="btn btn-outline btn-sm">Pay Rent</a>
+        <a href="https://rental-center.storedge.com/?companyId=ef2375f3-b212-4670-bbc0-be544f6614b6&facilityId=c621f5d9-15d0-4cc0-b26f-d4aa778139e7#/move-in" class="btn btn-accent btn-sm">Rent a Unit →</a>
+      </div>
+      <button class="hamburger" onclick="toggleMenu()" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav class="mobile-nav" id="mobileNav">
+    <div class="mobile-nav-cta">
+      <a href="https://rental-center.storedge.com/?companyId=ef2375f3-b212-4670-bbc0-be544f6614b6&facilityId=c621f5d9-15d0-4cc0-b26f-d4aa778139e7#/login" class="btn btn-outline">Pay Rent</a>
+      <a href="https://rental-center.storedge.com/?companyId=ef2375f3-b212-4670-bbc0-be544f6614b6&facilityId=c621f5d9-15d0-4cc0-b26f-d4aa778139e7#/move-in" class="btn btn-accent">Rent a Unit →</a>
+    </div>
+    <a href="/">🏠 Home</a>
+    <a href="/units">📦 Units &amp; Pricing</a>
+    <a href="/contact">📍 Contact &amp; Location</a>
+    <a href="/faq">❓ FAQ</a>
+    <a href="/self-storage-guide">💡 Storage Tips</a>
+    <a href="/tenant-protection/">🛡️ Tenant Protection</a>
+    <a href="/move-out">📤 Move Out</a>
+  </nav>
+</header>
+
+<div class="page-hero" style="padding:38px 0;">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><span>Move Out</span></nav>
+    <h1 style="font-size:clamp(26px,4vw,36px);margin-bottom:6px;">Move Out</h1>
+    <p style="font-size:15.5px;">Takes about two minutes on your phone.</p>
+  </div>
+</div>
+
+<section style="padding:28px 0 56px;">
+  <div class="mo-shell">
+    <noscript>
+      <div class="mo-noscript">
+        <strong>This page needs JavaScript.</strong><br>
+        Please call or text us at <a href="tel:+16513270146">(651) 327-0146</a> and we'll take your move-out over the phone.
+      </div>
+    </noscript>
+
+    <div class="mo-card" id="moCard" hidden>
+      <div class="mo-nav">
+        <button type="button" class="mo-back" id="moBack" hidden>‹ Back</button>
+        <span class="mo-step" id="moStep"></span>
+      </div>
+      <div class="mo-bar"><i id="moBar"></i></div>
+      <div class="mo-body" id="moBody"></div>
+      <div class="mo-foot" id="moFoot"></div>
+    </div>
+
+    <p style="text-align:center;font-size:14px;color:var(--gray-600);margin-top:22px;">
+      Questions? Call or text
+      <a href="tel:+16513270146" style="color:var(--green-main);font-weight:700;">(651) 327-0146</a>
+    </p>
+  </div>
+</section>
+
+<!-- ====== FOOTER ====== -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo">
+          <img src="/logo.png" alt="WI 64 Self Storage" class="logo-img logo-img-footer" />
+          <div>WI 64 Self Storage<span style="color:rgba(255,255,255,.5);">New Richmond, WI</span></div>
+        </div>
+        <p>Clean, secure, and affordable storage units in New Richmond, WI. Serving the WI-64 corridor — your belongings are safe with us.</p>
+        <div class="footer-contact">
+          <a href="tel:+16513270146">📞 (651) 327-0146</a>
+          <a href="mailto:wi64selfstorage@gmail.com">✉️ wi64selfstorage@gmail.com</a>
+          <a href="https://maps.google.com/?q=692+West+North+Shore+Drive+New+Richmond+WI+54017" target="_blank" rel="noopener">📍 692 W North Shore Dr, New Richmond, WI 54017</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Site</h4>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/units">Units &amp; Pricing</a></li>
+          <li><a href="/contact">Contact &amp; Location</a></li>
+          <li><a href="/faq">FAQ</a></li>
+          <li><a href="/self-storage-guide">Tips</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Account</h4>
+        <ul>
+          <li><a href="https://rental-center.storedge.com/?companyId=ef2375f3-b212-4670-bbc0-be544f6614b6&facilityId=c621f5d9-15d0-4cc0-b26f-d4aa778139e7#/move-in">Online Move-In</a></li>
+          <li><a href="https://rental-center.storedge.com/?companyId=ef2375f3-b212-4670-bbc0-be544f6614b6&facilityId=c621f5d9-15d0-4cc0-b26f-d4aa778139e7#/login">Pay Rent</a></li>
+          <li><a href="/move-out">Move Out</a></li>
+          <li><a href="https://wi64selfstorage.com/tenant-protection/">Tenant Protection</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Units</h4>
+        <ul>
+          <li><a href="/units#unit-8x8">8×8 Unit</a></li>
+          <li><a href="/units#unit-10x14">10×14 Unit</a></li>
+          <li><a href="/units#unit-10x20">10×20 Unit</a></li>
+          <li><a href="/units#unit-10x26">10×26 Unit</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 WI 64 Self Storage. All rights reserved.</p>
+      <p>692 W North Shore Dr, New Richmond, WI 54017 &nbsp;|&nbsp; <a href="tel:+16513270146">(651) 327-0146</a></p>
+    </div>
+  </div>
+</footer>
+
+<script src="/js/move-out.js" defer></script>
+</body>
+</html>
