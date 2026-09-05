@@ -1,5 +1,10 @@
 node_modules/
 package-lock.json
+!moveout-api/package-lock.json
 scraper.log
 data/storedge-raw.json
 .DS_Store
+moveout-api/node_modules/
+moveout-api/dist/
+moveout-api/.wrangler/
+moveout-api/.dev.vars

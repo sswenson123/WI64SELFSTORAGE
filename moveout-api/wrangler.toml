@@ -1,0 +1,26 @@
+name = "wi64-moveout-api"
+main = "src/index.ts"
+compatibility_date = "2024-12-05"
+compatibility_flags = ["nodejs_compat"]
+
+# Public origins allowed to call the submission API (CORS allowlist).
+[vars]
+ALLOWED_ORIGINS = "https://wi64selfstorage.com,https://www.wi64selfstorage.com"
+FACILITY_NAME = "WI 64 Self Storage — New Richmond, WI"
+# Cloudflare Access (Zero Trust) protects /admin. Both must be set or /admin
+# fails closed with 503. Find the AUD tag on the Access application's page.
+CF_ACCESS_TEAM_DOMAIN = ""
+CF_ACCESS_AUD = ""
+
+[[d1_databases]]
+binding = "DB"
+database_name = "wi64_moveout"
+database_id = "PLACEHOLDER_RUN_WRANGLER_D1_CREATE"
+migrations_dir = "migrations"
+
+[[r2_buckets]]
+binding = "PHOTOS"
+bucket_name = "wi64-moveout-photos"
+
+[observability]
+enabled = true
