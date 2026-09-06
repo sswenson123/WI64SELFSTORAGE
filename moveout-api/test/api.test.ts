@@ -320,3 +320,27 @@ describe('cors and routing', () => {
     expect((await call('/nope', { method: 'POST' })).status).toBe(404);
   });
 });
+
+describe('environment marking', () => {
+  it('stamps every record with the environment it came from', async () => {
+    const res = await postJson('/api/move-outs/scheduled', {
+      name: 'Env Test', phone: '6515550222', plannedMoveOutDate: '2099-12-31', idempotencyKey: token('env1'),
+    });
+    const { id } = (await res.json()) as { id: string };
+    const row = await env.DB.prepare('SELECT environment FROM move_out_requests WHERE id = ?').bind(id).first<{ environment: string }>();
+    // wrangler.toml (the test config) has no ENVIRONMENT set, so it defaults safe
+    expect(row?.environment).toBe('PRODUCTION');
+  });
+
+  it('stamps completed move-outs too, so a preview record can never pass for a real one', async () => {
+    const t = token('envp');
+    const photoIds = await uploadRequiredThree(t);
+    const res = await postJson('/api/move-outs/completed', {
+      unitNumber: 'ENV1', phone: '6515550233', confirmations, photoIds, uploadToken: t, idempotencyKey: token('env2'),
+    });
+    const { id } = (await res.json()) as { id: string };
+    const row = await env.DB.prepare('SELECT environment FROM move_out_requests WHERE id = ?').bind(id).first<{ environment: string }>();
+    expect(row?.environment).toBeTruthy();
+    expect(['PRODUCTION', 'PREVIEW']).toContain(row!.environment);
+  });
+});

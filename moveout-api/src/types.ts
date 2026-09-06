@@ -5,6 +5,8 @@ export interface Env {
   FACILITY_NAME: string;
   CF_ACCESS_TEAM_DOMAIN: string;
   CF_ACCESS_AUD: string;
+  /** 'PRODUCTION' or 'PREVIEW'. Stamped on every record. */
+  ENVIRONMENT: string;
 }
 
 export type RequestType = 'SCHEDULED_MOVE_OUT' | 'COMPLETED_MOVE_OUT';
@@ -36,6 +38,7 @@ export interface MoveOutRow {
   updated_at: string;
   staff_note: string | null;
   user_agent: string | null;
+  environment: string;
 }
 
 export interface PhotoRow {

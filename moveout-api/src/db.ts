@@ -58,6 +58,7 @@ export function hasAllRequiredSlots(photos: PhotoRow[]): boolean {
 export interface ScheduledRecord {
   id: string;
   facility: string;
+  environment: string;
   name: string;
   phone: string;
   phoneDisplay: string;
@@ -71,12 +72,12 @@ export async function insertScheduled(env: Env, r: ScheduledRecord): Promise<voi
   await env.DB.prepare(
     `INSERT INTO move_out_requests
        (id, type, status, facility, phone, phone_display, customer_name, planned_move_out_date,
-        idempotency_key, submitted_at, created_at, updated_at, user_agent)
-     VALUES (?, 'SCHEDULED_MOVE_OUT', 'NEW', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        idempotency_key, submitted_at, created_at, updated_at, user_agent, environment)
+     VALUES (?, 'SCHEDULED_MOVE_OUT', 'NEW', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
   )
     .bind(
       r.id, r.facility, r.phone, r.phoneDisplay, r.name, r.plannedMoveOutDate,
-      r.idempotencyKey, r.submittedAt, r.submittedAt, r.submittedAt, r.userAgent,
+      r.idempotencyKey, r.submittedAt, r.submittedAt, r.submittedAt, r.userAgent, r.environment,
     )
     .run();
 }
@@ -84,6 +85,7 @@ export async function insertScheduled(env: Env, r: ScheduledRecord): Promise<voi
 export interface CompletedRecord {
   id: string;
   facility: string;
+  environment: string;
   unitNumber: string;
   phone: string;
   phoneDisplay: string;
@@ -104,11 +106,11 @@ export async function insertCompleted(env: Env, r: CompletedRecord): Promise<voi
       `INSERT INTO move_out_requests
          (id, type, status, facility, phone, phone_display, unit_number, completed_at,
           confirmed_empty, confirmed_swept, confirmed_lock_removed,
-          idempotency_key, submitted_at, created_at, updated_at, user_agent)
-       VALUES (?, 'COMPLETED_MOVE_OUT', 'NEW', ?, ?, ?, ?, ?, 1, 1, 1, ?, ?, ?, ?, ?)`,
+          idempotency_key, submitted_at, created_at, updated_at, user_agent, environment)
+       VALUES (?, 'COMPLETED_MOVE_OUT', 'NEW', ?, ?, ?, ?, ?, 1, 1, 1, ?, ?, ?, ?, ?, ?)`,
     ).bind(
       r.id, r.facility, r.phone, r.phoneDisplay, r.unitNumber, r.completedAt,
-      r.idempotencyKey, r.completedAt, r.completedAt, r.completedAt, r.userAgent,
+      r.idempotencyKey, r.completedAt, r.completedAt, r.completedAt, r.userAgent, r.environment,
     ),
     ...r.photoIds.map((pid) =>
       env.DB.prepare('UPDATE move_out_photos SET request_id = ? WHERE id = ? AND request_id IS NULL').bind(r.id, pid),

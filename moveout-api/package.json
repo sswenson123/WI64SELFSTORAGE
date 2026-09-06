@@ -13,7 +13,11 @@
     "migrate:local": "wrangler d1 migrations apply wi64_moveout --local",
     "migrate:remote": "wrangler d1 migrations apply wi64_moveout --remote",
     "test:web": "node e2e/run.mjs",
-    "test:all": "npm run test && npm run test:web"
+    "test:all": "npm run test && npm run test:web",
+    "dev:preview": "wrangler dev --config wrangler.preview.toml",
+    "deploy:preview": "wrangler deploy --config wrangler.preview.toml",
+    "migrate:preview": "wrangler d1 migrations apply wi64_moveout_preview --config wrangler.preview.toml --remote",
+    "build:preview": "wrangler deploy --config wrangler.preview.toml --dry-run --outdir=dist-preview"
   },
   "devDependencies": {
     "@cloudflare/vitest-pool-workers": "^0.5.40",

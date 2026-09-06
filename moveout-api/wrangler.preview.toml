@@ -1,0 +1,45 @@
+# Preview / TEST deployment.
+#
+# Completely separate from production: its own Worker name, its own D1 database,
+# its own R2 bucket. Every record it writes is stamped environment = "PREVIEW"
+# and the admin queue paints itself as a test environment. Nothing here can
+# reach a real customer move-out record.
+#
+# It also serves the Pleasant Lake site from ../pleasant-lake-website, so one
+# deploy gives a single URL with the site, the API and the admin on it.
+#
+#   npx wrangler deploy --config wrangler.preview.toml
+#
+name = "wi64-moveout-preview"
+main = "src/index.ts"
+compatibility_date = "2024-12-05"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+ENVIRONMENT = "PREVIEW"
+# The preview site is served from this same Worker, so its own origin is the
+# only one that needs to call the API.
+ALLOWED_ORIGINS = "https://wi64-moveout-preview.workers.dev"
+FACILITY_NAME = "Pleasant Lake Storage — Hackensack, MN (PREVIEW)"
+CF_ACCESS_TEAM_DOMAIN = ""
+CF_ACCESS_AUD = ""
+
+# Serves the Pleasant Lake preview site. Paths under /api and /admin are handled
+# by the Worker; everything else falls through to these files.
+[assets]
+directory = "../pleasant-lake-website"
+binding = "SITE"
+not_found_handling = "404-page"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "wi64_moveout_preview"
+database_id = "PLACEHOLDER_RUN_WRANGLER_D1_CREATE_PREVIEW"
+migrations_dir = "migrations"
+
+[[r2_buckets]]
+binding = "PHOTOS"
+bucket_name = "wi64-moveout-photos-preview"
+
+[observability]
+enabled = true

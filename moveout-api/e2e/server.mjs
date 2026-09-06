@@ -68,10 +68,8 @@ const server = http.createServer(async (req, res) => {
   const file = url.pathname === '/' || url.pathname === '/move-out' ? '/move-out.html' : url.pathname;
   const full = path.join(ROOT, file);
   if (!full.startsWith(ROOT) || !fs.existsSync(full)) return send(res, 404, 'not found', 'text/plain');
-  let content = fs.readFileSync(full);
-  if (path.extname(full) === '.html') {
-    content = content.toString().replace('data-moveout-api=""', `data-moveout-api="http://localhost:${PORT}"`);
-  }
-  send(res, 200, content, TYPES[path.extname(full)] || 'application/octet-stream');
+  // The page reads data-moveout-api="" as same-origin, which is exactly how the
+  // preview Worker serves it — so the harness serves the file unmodified.
+  send(res, 200, fs.readFileSync(full), TYPES[path.extname(full)] || 'application/octet-stream');
 });
 server.listen(PORT, () => console.log('harness on ' + PORT));

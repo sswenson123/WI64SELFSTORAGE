@@ -14,9 +14,10 @@
   // ── CONFIG ────────────────────────────────────────────────────────────────
   // Set after `wrangler deploy` (or point at a custom domain / route).
   // Can be overridden for testing with <body data-moveout-api="http://…">.
-  var API_BASE =
-    document.body.getAttribute('data-moveout-api') ||
-    'https://wi64-moveout-api.wi64selfstorage.workers.dev';
+  // An empty data-moveout-api means "same origin" — that is how the preview
+  // Worker serves the site and the API together. Absent means use the default.
+  var API_ATTR = document.body.getAttribute('data-moveout-api');
+  var API_BASE = API_ATTR === null ? 'https://wi64-moveout-api.wi64selfstorage.workers.dev' : API_ATTR;
 
   var MAX_EDGE = 1600;      // px, long edge after resize
   var TARGET_KB = 380;      // per photo

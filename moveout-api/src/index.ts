@@ -139,7 +139,8 @@ async function handleScheduled(request: Request, env: Env, cors: Record<string, 
   const submittedAt = new Date().toISOString();
   try {
     await insertScheduled(env, {
-      id, facility: env.FACILITY_NAME, name: input.name, phone: input.phone,
+      id, facility: env.FACILITY_NAME, environment: env.ENVIRONMENT || 'PRODUCTION',
+      name: input.name, phone: input.phone,
       phoneDisplay: input.phoneDisplay, plannedMoveOutDate: input.plannedMoveOutDate,
       idempotencyKey: input.idempotencyKey, submittedAt,
       userAgent: request.headers.get('User-Agent'),
@@ -196,7 +197,8 @@ async function handleCompleted(request: Request, env: Env, cors: Record<string, 
   const completedAt = new Date().toISOString();
   try {
     await insertCompleted(env, {
-      id, facility: env.FACILITY_NAME, unitNumber: input.unitNumber, phone: input.phone,
+      id, facility: env.FACILITY_NAME, environment: env.ENVIRONMENT || 'PRODUCTION',
+      unitNumber: input.unitNumber, phone: input.phone,
       phoneDisplay: input.phoneDisplay, completedAt, idempotencyKey: input.idempotencyKey,
       photoIds: input.photoIds, userAgent: request.headers.get('User-Agent'),
     });
@@ -261,7 +263,8 @@ async function handleAdmin(request: Request, env: Env, url: URL): Promise<Respon
   const detailId = url.searchParams.get('id');
   const detailPhotos = detailId ? await getPhotosForRequest(env, detailId) : [];
 
-  return new Response(adminPage({ rows, counts, filterType: type, filterStatus: status, detailId, detailPhotos, viewer: access.identity.email }), {
+  return new Response(adminPage({ rows, counts, filterType: type, filterStatus: status, detailId, detailPhotos,
+    viewer: access.identity.email, environment: env.ENVIRONMENT || 'PRODUCTION', facility: env.FACILITY_NAME }), {
     headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store' },
   });
 }

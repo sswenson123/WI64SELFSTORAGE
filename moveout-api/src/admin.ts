@@ -55,6 +55,9 @@ function statusForm(row: MoveOutRow, back: string): string {
 
 export interface AdminView {
   rows: MoveOutRow[];
+  /** 'PREVIEW' paints the whole page as a test environment. */
+  environment: string;
+  facility: string;
   counts: Map<string, number>;
   filterType: string;
   filterStatus: string;
@@ -69,6 +72,7 @@ export function adminPage(v: AdminView): string {
   const backQS = `/admin?type=${encodeURIComponent(v.filterType)}&status=${encodeURIComponent(v.filterStatus)}`;
 
   const detailRow = v.detailId ? v.rows.find((r) => r.id === v.detailId) : undefined;
+  const isPreview = v.environment !== 'PRODUCTION';
 
   const detail = detailRow
     ? `<section class="detail">
@@ -103,7 +107,7 @@ export function adminPage(v: AdminView): string {
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>Move-Out Requests · WI 64</title>
+<title>${isPreview ? 'TEST · ' : ''}Move-Out Requests</title>
 <style>
 :root{--bg:#F4F6F1;--card:#fff;--ink:#161B12;--ink2:#4A5344;--grey:#79826F;
       --line:#DFE4D9;--green:#2E7D32;--green-wash:#E9F2E7;--amber:#B4560A;--amber-wash:#FBEEE1;--blue:#1B4F72}
@@ -112,6 +116,12 @@ body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 -apple-system
 header{background:var(--green);color:#fff;padding:16px 22px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
 header h1{margin:0;font-size:18px;letter-spacing:-.01em}
 header .who{font-size:12.5px;opacity:.85}
+header.preview{background:#8a3b06}
+.previewbar{background:#FBEEE1;border-bottom:2px solid var(--amber);color:#7a3d05;
+  padding:12px 22px;font-size:14px;line-height:1.5}
+.previewbar strong{color:#5f2f03}
+.envtag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  background:var(--amber);color:#fff;border-radius:4px;padding:2px 7px;margin-left:8px;vertical-align:middle}
 main{padding:22px;max-width:1280px;margin:0 auto}
 .filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
 .filters a{font-size:13px;font-weight:600;text-decoration:none;color:var(--ink2);background:var(--card);
@@ -154,10 +164,15 @@ a.view:hover{text-decoration:underline}
 .note{font-size:12.5px;color:var(--grey);margin:22px 0 0}
 </style></head>
 <body>
-<header>
-  <h1>Move-Out Requests · WI 64 Self Storage</h1>
+<header class="${isPreview ? 'preview' : ''}">
+  <h1>${isPreview ? '⚠️ TEST / PREVIEW — ' : ''}Move-Out Requests · ${esc(v.facility)}</h1>
   <span class="who">${esc(v.viewer)}</span>
 </header>
+${isPreview ? `<div class="previewbar">
+  <strong>This is the PREVIEW environment.</strong> Every record below is a test submission from the
+  preview site. Nothing here is a real customer move-out — do not close an account or issue a refund
+  from this queue.
+</div>` : ''}
 <main>
   <div class="filters">
     <a href="/admin" class="${!v.filterType && !v.filterStatus ? 'on' : ''}">All</a>
@@ -174,7 +189,7 @@ a.view:hover{text-decoration:underline}
     <tbody>
       ${completed.length === 0 ? '<tr><td colspan="7" class="empty">Nothing here yet.</td></tr>' : ''}
       ${completed.map((r) => `<tr>
-        <td class="unit">${esc(r.unit_number)}</td>
+        <td class="unit">${esc(r.unit_number)}${r.environment !== 'PRODUCTION' ? '<span class="envtag">test</span>' : ''}</td>
         <td class="mono">${esc(r.phone_display)}</td>
         <td class="mono">${fmtDateTime(r.completed_at)}</td>
         <td>${v.counts.get(r.id) ?? 0}</td>
@@ -191,7 +206,7 @@ a.view:hover{text-decoration:underline}
     <tbody>
       ${scheduled.length === 0 ? '<tr><td colspan="6" class="empty">Nothing here yet.</td></tr>' : ''}
       ${scheduled.map((r) => `<tr>
-        <td>${esc(r.customer_name)}</td>
+        <td>${esc(r.customer_name)}${r.environment !== 'PRODUCTION' ? '<span class="envtag">test</span>' : ''}</td>
         <td class="mono">${esc(r.phone_display)}</td>
         <td class="mono">${fmtDate(r.planned_move_out_date)}</td>
         <td class="mono">${fmtDateTime(r.submitted_at)}</td>
@@ -201,7 +216,7 @@ a.view:hover{text-decoration:underline}
     </tbody>
   </table></div>
 
-  <p class="note">Times shown in Central. Submissions are not matched to the rent roll — verify the unit and phone in storEDGE before processing.</p>
+  <p class="note">Times shown in Central. Submissions are not matched to the rent roll — verify the unit and phone in storEDGE before processing.${isPreview ? ' <strong>Preview environment: these are test records.</strong>' : ''}</p>
 </main>
 </body></html>`;
 }
