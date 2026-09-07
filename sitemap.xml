@@ -1,55 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
-        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-
-  <!-- Home Page -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://wi64selfstorage.com/</loc>
-    <lastmod>2026-06-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
+    <lastmod>2026-09-07</lastmod>
   </url>
-
-  <!-- Units & Pricing -->
   <url>
     <loc>https://wi64selfstorage.com/units</loc>
-    <lastmod>2026-06-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <lastmod>2026-09-07</lastmod>
   </url>
-
-  <!-- Storage Tips / SEO Landing Page -->
   <url>
-    <loc>https://wi64selfstorage.com/self-storage-guide</loc>
-    <lastmod>2026-06-10</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
+    <loc>https://wi64selfstorage.com/storage-unit-prices-new-richmond-wi</loc>
+    <lastmod>2026-09-07</lastmod>
   </url>
-
-  <!-- Contact Page -->
+  <url>
+    <loc>https://wi64selfstorage.com/drive-up-storage-new-richmond-wi</loc>
+    <lastmod>2026-09-07</lastmod>
+  </url>
+  <url>
+    <loc>https://wi64selfstorage.com/10x20-storage-unit-new-richmond-wi</loc>
+    <lastmod>2026-09-07</lastmod>
+  </url>
+  <url>
+    <loc>https://wi64selfstorage.com/boat-rv-storage-new-richmond-wi</loc>
+    <lastmod>2026-09-07</lastmod>
+  </url>
   <url>
     <loc>https://wi64selfstorage.com/contact</loc>
-    <lastmod>2026-06-10</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <lastmod>2026-09-07</lastmod>
   </url>
-
-  <!-- FAQ Page -->
   <url>
     <loc>https://wi64selfstorage.com/faq</loc>
-    <lastmod>2026-06-10</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <lastmod>2026-09-07</lastmod>
   </url>
-
-  <!-- Tenant Protection -->
+  <url>
+    <loc>https://wi64selfstorage.com/self-storage-guide</loc>
+    <lastmod>2026-09-07</lastmod>
+  </url>
   <url>
     <loc>https://wi64selfstorage.com/tenant-protection/</loc>
-    <lastmod>2026-06-10</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
+    <lastmod>2026-09-07</lastmod>
   </url>
-
 </urlset>
