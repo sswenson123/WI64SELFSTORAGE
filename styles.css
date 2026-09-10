@@ -416,6 +416,20 @@ section { padding: 80px 0; }
 }
 .unit-mini:hover .size,
 .unit-mini:hover .dims { color: var(--white); }
+.unit-mini .mini-price {
+  margin-top: 4px;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--green-dark);
+}
+.unit-mini:hover .mini-price { color: var(--white); }
+.unit-card-price {
+  font-weight: 600;
+  font-size: 17px;
+  color: var(--green-dark);
+  margin: 6px 0 10px;
+}
+.unit-card-price strong { font-size: 20px; }
 .unit-mini .size { font-family: 'Poppins',sans-serif; font-weight: 800; font-size: 18px; color: var(--green-dark); }
 .unit-mini .dims { font-size: 12px; color: var(--gray-600); margin-top: 2px; }
 .hero-card-cta {
