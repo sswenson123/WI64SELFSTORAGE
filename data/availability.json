@@ -3,7 +3,7 @@
   "facilityId": "c621f5d9-15d0-4cc0-b26f-d4aa778139e7",
   "units": {
     "8x8": {
-      "label": "8 × 8",
+      "label": "8 \u00d7 8",
       "sqft": 64,
       "price": "$55",
       "perMonth": 55,
@@ -11,7 +11,7 @@
       "lastSeen": "2026-09-07T05:09:32.963Z"
     },
     "10x14": {
-      "label": "10 × 14",
+      "label": "10 \u00d7 14",
       "sqft": 140,
       "price": "$80",
       "perMonth": 80,
@@ -19,15 +19,15 @@
       "lastSeen": "2026-09-07T05:09:32.963Z"
     },
     "10x20": {
-      "label": "10 × 20",
+      "label": "10 \u00d7 20",
       "sqft": 200,
-      "price": "$90",
-      "perMonth": 90,
+      "price": "$95",
+      "perMonth": 95,
       "available": false,
       "lastSeen": "2026-09-07T05:09:32.963Z"
     },
     "10x26": {
-      "label": "10 × 26",
+      "label": "10 \u00d7 26",
       "sqft": 260,
       "price": "$130",
       "perMonth": 130,
