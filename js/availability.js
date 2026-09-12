@@ -43,6 +43,23 @@
       // 3) Price in the comparison table
       var cell = document.querySelector('[data-table-size="' + key + '"]');
       if (cell && u.price) cell.textContent = u.price;
+
+      // 4) Route this size's Reserve/Rent CTAs: waitlist when full, rent link when open
+      document.querySelectorAll('.unit-cta-' + key).forEach(function (cta) {
+        if (!cta.dataset.origHref) {
+          cta.dataset.origHref = cta.getAttribute('href');
+          cta.dataset.origText = cta.textContent;
+        }
+        if (!u.available && typeof window.openWaitlist === 'function') {
+          cta.textContent = 'Join the Waitlist \u2192';
+          cta.setAttribute('href', '#');
+          cta.onclick = function (e) { e.preventDefault(); window.openWaitlist(key); };
+        } else if (u.available) {
+          cta.textContent = cta.dataset.origText;
+          cta.setAttribute('href', cta.dataset.origHref);
+          cta.onclick = null;
+        }
+      });
     });
 
     // 4) Timestamp
