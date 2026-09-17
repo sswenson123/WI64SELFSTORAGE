@@ -10,8 +10,8 @@
  *   waitlist_submit — waitlist form (only exists on some pages; guarded)
  */
 (function () {
-  var GA_ID = 'G-XXXXXXXXXX';
-  if (!/^G-[A-Z0-9]{6,}$/.test(GA_ID) || GA_ID === 'G-XXXXXXXXXX') return;
+  var GA_ID = 'G-7ZQ001PLRR';
+  if (!/^G-[A-Z0-9]{6,}$/.test(GA_ID)) return;
 
   // Load gtag
   var s = document.createElement('script');
